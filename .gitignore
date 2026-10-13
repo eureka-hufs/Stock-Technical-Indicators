@@ -1,0 +1,12 @@
+﻿.tushare_token
+.env
+*.key
+*secret*
+
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+*.csv
+*.xlsx
+*.log
