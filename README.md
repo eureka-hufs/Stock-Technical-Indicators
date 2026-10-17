@@ -324,5 +324,4 @@ stats_text = f"""
 {stock2_code}:
   平均收益率: {stock2_returns.mean():.4f}
   收益率标准差: {stock2_returns.std():.4f}
-"""
 ```
