@@ -9,9 +9,9 @@ df['MA20'] = df['close'].rolling(window=20).mean()
 
 **EMA**：**指数移动平均线**（Exponential Moving Average）是一个趋势跟踪指标。相较于 MA 线，EMA 对近期数据更加敏感，给予最近的价格数据更高的权重，因此对市场变化的响应更显著。首先考虑平滑系数 $\displaystyle\alpha=\frac{2}{N+1}$，其中 $N$ 是计算的时间周期（如 EMA12 就是取 $N=12$ 的计算结果），然后根据递推
 
-$$\text{EMA}_{t}= \alpha P+(1-\alpha)\text{EMA}_{t-1}$$
+$$\text{EMA}_{t}= \alpha P+(1-\alpha)\text{EMA}\_{t-1}$$
 
-计算每期 EMA. 其中 $\text{EMA}_t$ 是当期指数移动平均数， $\text{EMA}_{t-1}$ 是上期指数移动平均数，$P$ 是当期收盘价，$\alpha$ 是平滑系数。递推公式可以展开成通项公式，不加赘述。
+计算每期 EMA. 其中 $\text{EMA}_t$ 是当期指数移动平均数， $\text{EMA}\_{t-1}$ 是上期指数移动平均数，$P$ 是当期收盘价，$\alpha$ 是平滑系数。递推公式可以展开成通项公式，不加赘述。
 - 当价格位于 EMA 之上，且 EMA 本身呈上升趋势，标明市场处于上涨阶段。当价格位于 EMA 之下，且 EMA 本身呈下降趋势，标明市场处于下跌阶段。
 - **金叉（买入信号）**：当短期 EMA（如 12 日）由下向上突破长期 EMA（如 26 日）时，表明市场可能进入**上涨趋势**，即为**买入信号**。
 - **死叉（卖出信号）**：当短期 EMA 由上向下跌破长期 EMA 时，表明市场可能进入**下跌趋势**，即为**卖出信号**。
@@ -26,7 +26,7 @@ df['EMA200'] = df['close'].ewm(span=200, adjust=False).mean()
 
 **MACD**：异同移动平均线（Moving Average Convergence / Divergence）由两条线（DIF & DEA）和由此计算得到的柱状图构成。
 - **DIF**：**差离值**（Difference）或常称“快线”，短期 EMA 和长期 EMA 之差，一般是 EMA12 - EMA26.
-- **DEA**：实际上就是 DIF 的 9 日指数移动平均线，我们称为对 DIF 的平滑处理：$$\text{DEA}_{t}=\frac{\text{DIF}_{t}\times 2+ \text{DEA}_{t-1}\times 8}{9}$$
+- **DEA**：实际上就是 DIF 的 9 日指数移动平均线，我们称为对 DIF 的平滑处理：$$\text{DEA}\_{t}=\frac{\text{DIF}\_{t}\times 2+ \text{DEA}\_{t-1}\times 8}{9}$$
 - DIF $>$ 0：短期 EMA 在长期 EMA 上方，代表多头趋势，数值越大，短期上涨动能越强；DIF $<$ 0：短期 EMA 在长期 EMA 下方，代表空头趋势，数值越小，短期下跌动能越强。
 - DIF 由下向上穿过 0 线：由空转多，是潜在的买入信号；DIF 由上向下穿过 0 线：由多转空，是潜在的卖出信号。
 - 金叉：DIF 由下向上穿过 DEA 是买入信号；死叉：DIF 由上向下穿过 DEA 是卖出信号。
